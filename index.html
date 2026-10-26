@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Anujin's birthday🎂</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Nunito:wght@400;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--plum:#5e0b17;--rose:#ff7aa8;--gold:#ffd98a;--cream:#fff4ec;--violet:#8c64ff}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding-top:3vh;color:var(--cream);
+font-family:'Nunito','Segoe UI',sans-serif;overflow-x:hidden;background-color:var(--plum);background-attachment:fixed;
+background-image:radial-gradient(circle at 15% 8%,rgba(255,246,228,.24),transparent 42%),radial-gradient(circle at 88% 90%,rgba(255,122,168,.32),transparent 50%),radial-gradient(circle at 50% 55%,rgba(255,217,138,.12),transparent 60%),linear-gradient(180deg,#7d1020,#5e0b17 60%,#4a0812)}
+/* floating bokeh */
+.bokeh{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.bokeh i{position:absolute;bottom:-60px;border-radius:50%;background:radial-gradient(circle,rgba(255,217,138,.55),rgba(255,122,168,.0) 70%);animation:rise linear infinite}
+@keyframes rise{to{transform:translateY(-115vh) translateX(30px);opacity:0}}
+.main-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;padding:0 16px 40px}
+.title{font:400 clamp(2.6rem,8vw,5.4rem)/1.1 'Marck Script',cursive;margin:10px 0 0;text-align:center;
+background:linear-gradient(90deg,var(--gold),#fff6e4,var(--rose),var(--gold));background-size:250% 100%;
+-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 20px rgba(255,122,168,.5));animation:shine 7s linear infinite}
+@keyframes shine{to{background-position:250% 0}}
+.subtitle{margin:4px 0 20px;letter-spacing:1px;opacity:.85;text-align:center}
+.input-box{margin-bottom:10px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;z-index:10}
+input[type=number]{background:rgba(255,255,255,.14);border:1px solid rgba(255,217,138,.7);padding:11px 18px;color:var(--cream);
+font:700 1rem 'Nunito',sans-serif;border-radius:30px;backdrop-filter:blur(6px);width:90px;text-align:center;outline:none}
+input::placeholder{color:rgba(255,244,236,.6)}
+input:focus-visible{box-shadow:0 0 0 3px rgba(255,217,138,.5)}
+button{background:linear-gradient(135deg,var(--gold),var(--rose));color:#3a1230;padding:11px 26px;border-radius:30px;border:none;cursor:pointer;
+font:800 1rem 'Nunito',sans-serif;box-shadow:0 6px 0 #b24b78,0 12px 24px rgba(0,0,0,.35);transition:transform .15s,box-shadow .15s}
+button:hover{transform:translateY(-2px);box-shadow:0 8px 0 #b24b78,0 16px 28px rgba(255,217,138,.35)}
+button:active{transform:translateY(5px);box-shadow:0 1px 0 #b24b78,0 4px 10px rgba(0,0,0,.4)}
+button:focus-visible{outline:3px solid var(--cream);outline-offset:3px}
+.row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:34px;perspective:1200px}
+.stage{width:600px;max-width:94vw;height:520px;position:relative}
+.stage::before{content:"";position:absolute;left:12%;right:12%;bottom:6%;height:60px;background:radial-gradient(ellipse,rgba(255,217,138,.35),transparent 70%);filter:blur(12px)}
+.stage canvas{position:relative;display:block;cursor:grab;touch-action:none}
+.stage canvas:active{cursor:grabbing}
+.tilt{transform-style:preserve-3d;transition:transform .25s ease-out,box-shadow .25s}
+.photo-frame{width:420px;max-width:92vw;background:var(--cream);padding:14px 14px 48px;border-radius:6px;position:relative;
+box-shadow:0 2px 0 #fff inset,0 18px 0 -8px rgba(0,0,0,.18),0 30px 60px rgba(0,0,0,.55);--r:3deg;transform:rotate(var(--r))}
+.photo-frame::after{content:"Liza 💖";position:absolute;left:0;right:0;bottom:8px;text-align:center;font:400 1.7rem 'Marck Script',cursive;color:#b0295f}
+.photo-frame::before{content:"";position:absolute;top:-14px;left:50%;width:90px;height:26px;margin-left:-45px;background:rgba(255,217,138,.7);transform:rotate(-4deg) translateZ(20px);border-radius:2px}
+.photo-frame img{display:block;width:100%;height:330px;object-fit:cover;border-radius:3px;transform:translateZ(18px)}
+.text-card{width:310px;max-width:92vw;min-height:230px;border-radius:20px;padding:26px;--r:-2deg;transform:rotate(var(--r));
+background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(255,255,255,.06));border:1px solid rgba(255,217,138,.65);
+backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 22px 50px rgba(0,0,0,.45)}
+.text-card h3{margin:0 0 12px;font:400 2rem/1.15 'Marck Script',cursive;color:var(--gold);transform:translateZ(30px)}
+.text-card p{margin:0;line-height:1.75;transform:translateZ(14px)}
+.corner-photo{position:absolute;top:22px;right:22px;width:clamp(150px,15vw,260px);background:var(--cream);padding:8px;border:3px solid var(--gold);
+border-radius:8px;box-shadow:0 0 0 3px rgba(255,122,168,.55),0 14px 34px rgba(0,0,0,.5);z-index:5;transform:rotate(5deg);transition:transform .3s}
+.corner-photo img{display:block;width:100%;height:auto;border:2px solid var(--rose);border-radius:4px}
+.corner-photo:hover{transform:rotate(0) scale(1.05)}
+@media(max-width:1150px){.corner-photo{display:none}}
+.memories{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:34px;margin-top:40px;width:100%;perspective:1200px}
+.mem-card{width:380px;max-width:92vw;border-radius:20px;padding:24px;background:linear-gradient(145deg,rgba(255,255,255,.2),rgba(255,255,255,.05));
+border:1px solid rgba(255,217,138,.6);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 22px 50px rgba(0,0,0,.45)}
+.mem-card h3{margin:0 0 12px;font:400 2rem/1.15 'Marck Script',cursive;color:var(--gold)}
+.drop{display:flex;flex-direction:column;align-items:center;gap:8px;padding:26px 14px;border:2px dashed rgba(255,217,138,.7);border-radius:14px;text-align:center;cursor:pointer;transition:background .2s}
+.drop:hover,.drop.over{background:rgba(255,217,138,.12)}
+.drop input{display:none}
+.drop span{font-size:2rem}
+#player{margin-top:14px}
+#player audio,#player video{width:100%;border-radius:12px}
+/* love letter */
+.letter-card{width:400px;max-width:92vw;--r:1.5deg;transform:rotate(var(--r));filter:drop-shadow(0 24px 40px rgba(0,0,0,.5))}
+.env{position:relative;background:#8c1318;border-radius:16px;padding:30px 20px 128px;overflow:hidden}
+.letter{position:relative;background:#fff6e4;padding:30px 24px 26px;color:#8b1a2b;text-align:center}
+.letter::before{content:"";position:absolute;left:0;right:0;top:-11px;height:12px;background:radial-gradient(circle at 10px 12px,#fff6e4 9px,transparent 9.6px) 0 0/20px 12px repeat-x}
+.l-title{margin:0 0 18px;font:700 1.9rem/1.1 'Playfair Display',Georgia,serif;letter-spacing:1px;color:#7d1020}
+.l-top{display:flex;gap:12px;align-items:flex-end;justify-content:space-between;text-align:left}
+.l-fields{flex:1;font:400 .85rem 'Nunito',sans-serif}
+.l-fields div{display:flex;align-items:baseline;gap:8px;border-bottom:2px solid #8b1a2b;margin-bottom:12px;padding-bottom:2px}
+.l-fields b{font-weight:700;font-size:.8rem}
+.l-fields span{font:400 1.5rem/1 'Marck Script',cursive}
+.stamps{display:flex;gap:8px}
+.stamp{width:62px;padding:5px;background:#fff;border:2px dashed #c98c94;border-radius:4px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.stamp img{display:block;width:100%;height:76px;object-fit:cover}
+.l-hello{margin:18px 0 8px;font:400 2.1rem/1.1 'Marck Script',cursive;color:#7d1020}
+.note-body{min-height:120px;white-space:pre-wrap;font:400 1.25rem/1.55 'Marck Script',cursive;color:#8b1a2b}
+.l-sign{margin-top:14px;font:400 1.3rem 'Marck Script',cursive}
+.flap{position:absolute;left:0;right:0;bottom:0;height:140px;background:linear-gradient(#e3e1db,#cfcdc6);clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);z-index:2}
+.seal{position:absolute;left:50%;bottom:34px;width:58px;height:58px;margin-left:-29px;z-index:3;border-radius:50% 46% 52% 48%;
+background:radial-gradient(circle at 35% 30%,#d4293d,#8a0f22 70%);box-shadow:0 5px 10px rgba(0,0,0,.4),inset 0 0 0 4px rgba(255,255,255,.08);display:grid;place-items:center;color:#ffb9c4;font-size:1.6rem}
+.hint{margin-top:22px;opacity:.8;text-align:center}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+#celebrate{position:fixed;inset:0;z-index:60;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+background:radial-gradient(circle,rgba(94,11,23,.5),rgba(74,8,18,.88));padding:20px;perspective:900px}
+#celebrate.show{display:flex;animation:fadeIn .6s both}
+#bigAge{font:800 clamp(9rem,38vw,26rem)/.95 'Nunito',sans-serif;background:linear-gradient(180deg,#fff6d6,var(--gold) 45%,var(--rose));
+-webkit-background-clip:text;background-clip:text;color:transparent;
+animation:popIn .9s cubic-bezier(.2,1.4,.4,1) both,glow 2.4s ease-in-out .9s infinite;transform-style:preserve-3d}
+#celebrate .wish{font:400 clamp(1.8rem,6vw,3.4rem) 'Marck Script',cursive;margin:6px 0 24px;animation:fadeIn 1s .7s both}
+#celebrate button{animation:fadeIn 1s 1.2s both}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes popIn{from{transform:scale(.2) rotateX(70deg) rotate(-8deg);opacity:0}to{transform:scale(1) rotateX(0) rotate(0);opacity:1}}
+@keyframes glow{0%,100%{filter:drop-shadow(0 6px 0 #b24b78) drop-shadow(0 0 22px rgba(255,217,138,.5))}50%{filter:drop-shadow(0 6px 0 #b24b78) drop-shadow(0 0 50px rgba(255,122,168,.9))}}
+@media(prefers-reduced-motion:reduce){#bigAge,#celebrate .wish,#celebrate button,.title,.bokeh i{animation:none}}
+@media(max-width:700px){.stage{height:420px}.photo-frame img{height:290px}}
+</style>
+</head>
+<body>
+<div class="bokeh" id="bokeh"></div>
+<canvas id="fx"></canvas>
+<div class="corner-photo"><img src="images/kkk.jpg" alt="Photo"></div>
+
+<div class="main-content">
+  <h1 class="title">Happy Birthday, Anujin! ✨</h1>
+  <p class="subtitle">Насаа оруулаад, лаагаа үлээгээрэй</p>
+  <div class="input-box">
+    <input type="number" id="age" placeholder="Нас" min="1" max="99" aria-label="Нас">
+    <button onclick="createCake()">Generate Magic</button>
+    <button onclick="blowOut()">Blow 🌬️</button>
+  </div>
+  <div class="row">
+    <div class="text-card tilt">
+      <h3> Миний амьдралд байгаад, олон сайхан дурсамжийн минь нэг хэсэг болж явдагт чинь баярлалаа найздаа... 💗</h3>
+    
+    </div>
+    <div class="stage" id="stage"></div>
+  </div>
+  <div class="memories">
+    <div class="mem-card tilt">
+      <h3>Бичлэг 🎙️</h3>
+      <div id="player"><p style="margin:0;opacity:.8">Бичлэг хайж байна...</p></div>
+    </div>
+    <div class="letter-card tilt">
+      <div class="env">
+        <div class="letter">
+          <h3 class="l-title">ЗУРВАС</h3>
+          <div class="l-top">
+            <div class="l-fields">
+              <div><b>Хэнд:</b><span>Anujind&#127775; </span></div>
+              <div><b>Хэнээс:</b><span id="fromName">Amraagaas </span></div>
+            </div>
+            <div class="stamps">
+              <div class="stamp"><img src="images/kkk.jpg" alt="" onerror="this.parentNode.style.display='none'"></div>
+              <div class="stamp"><img src="images/3friends.png" alt="" onerror="this.parentNode.style.display='none'"></div>
+            </div>
+          </div>
+          <p class="l-hello"></p>
+          💗 Төрсөн өдрийн мэнд хүргэе, хөөрхөн минь! 🌷🎂
+
+Үргэлж инээж, хүссэн бүхнээ биелүүлж, өдөр бүр аз жаргалтай байгаарай. Чиний минь амьдралд дандаа гоё зүйлс тохиолдож, сэтгэлд чинь дулаахан мэдрэмж төрүүлэх хүмүүсээр хүрээлүүлж яваасай. 🥹💞
+
+Чи яг байгаагаараа л үнэхээр гоё хүн шүү. Өөрийнхөөрөө байж, хүссэн бүхнээ хийж, мөрөөдсөн бүхэндээ хүрээрэй. Зарим өдөр хэцүү байсан ч чамайг баярлуулах олон сайхан зүйл урд чинь байгаа гэдгийг битгий мартаарай. 🫶🏻
+
+Шинэ насанд чинь инээд хөөр, аз жаргал, хайр, дурсамжтай мөчүүд улам их байж, хүссэн бүхэн чинь аажмаар биелээсэй гэж хүсэж байна. Өнөөдөр хамгийн их инээж, хамгийн гоё дурсамжаа бүтээгээрэй. Чи минь хамгийн сайхан бүхнийг хүртэх эрхтэй хүн шүү. 🎀✨
+
+Үргэлж аз жаргалтай, инээмсэглэл дүүрэн байгаарай. Чамдаа хорвоогийн хамгийн гоё бүхнийг хүсье. Шинэ нас нь аз жаргалаар дүүрэн байг! 💗🌸🦋
+          <div class="note-body" id="noteText">
+
+          </div>
+          <!-- ===== ЗАХИДЛЫН ТӨГСГӨЛ ===== -->
+          <div class="l-sign"></div>
+        </div>
+        <div class="flap"></div>
+        <div class="seal">♥</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="hint">Close your eyes, make a wish, and blow! 🌬️</p>
+</div>
+
+<div id="celebrate">
+  <div id="bigAge">0</div>
+  <div class="wish">Төрсөн өдрийн мэнд! 🎉</div>
+  <button onclick="relight()">Дахин асаах 🕯️</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* bokeh */
+(function(){var b=document.getElementById("bokeh");for(var i=0;i<18;i++){var e=document.createElement("i"),s=20+Math.random()*60;
+e.style.cssText="left:"+Math.random()*100+"%;width:"+s+"px;height:"+s+"px;animation-duration:"+(12+Math.random()*18)+"s;animation-delay:-"+Math.random()*20+"s;opacity:"+(.25+Math.random()*.4);b.appendChild(e);}})();
+
+/* card tilt */
+document.querySelectorAll(".tilt").forEach(function(el){
+  var base=getComputedStyle(el).getPropertyValue("--r").trim()||"0deg";
+  el.addEventListener("pointermove",function(e){var r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+    el.style.transform="rotate(0deg) rotateY("+x*18+"deg) rotateX("+(-y*18)+"deg) scale(1.04)";});
+  el.addEventListener("pointerleave",function(){el.style.transform="rotate("+base+")";});
+});
+
+/* ---------- 3D scene ---------- */
+const stage=document.getElementById("stage");
+const scene=new THREE.Scene();
+scene.fog=new THREE.Fog(0x5e0b17,10,22);
+const camera=new THREE.PerspectiveCamera(40,1,.1,100);
+camera.position.set(0,4.6,12.2);camera.lookAt(0,2.3,0);
+const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+stage.appendChild(renderer.domElement);
+function resize(){var w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();}
+resize();addEventListener("resize",resize);
+
+scene.add(new THREE.HemisphereLight(0xfff0f5,0x6a4aa8,.85));
+const sun=new THREE.DirectionalLight(0xffffff,.8);sun.position.set(3,6,4);scene.add(sun);
+const rim=new THREE.PointLight(0xfff0d0,1.2,14);rim.position.set(-4,3,-3);scene.add(rim);
+const pinkL=new THREE.PointLight(0xff7aa8,1,12);pinkL.position.set(4,2,3);scene.add(pinkL);
+const candleLight=new THREE.PointLight(0xffb300,0,7);candleLight.position.set(0,3.2,0);scene.add(candleLight);
+
+const cake=new THREE.Group();scene.add(cake);
+const M=function(c,r,m,o){return new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:r,metalness:m||0},o||{}));};
+const creamMat=M(0xfdf0f0,.55),frostMat=M(0xffffff,.3),pinkMat=M(0xf8a8c4,.4),cherryMat=M(0xd7263d,.15,.1),
+goldMat=M(0xffc861,.25,.9),plateMat=M(0xffffff,.15,.2,{transparent:true,opacity:.6});
+
+function cyl(r,h,y,m,seg){var me=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,seg||64),m);me.position.y=y;cake.add(me);return me;}
+/* pedestal */
+cyl(2.9,.3,-.25,goldMat);cyl(2.6,.12,-.04,M(0xff7aa8,.3,.4));
+const halo=new THREE.Mesh(new THREE.TorusGeometry(2.95,.04,12,96),M(0xffd98a,.3,.2,{emissive:0xffa63a,emissiveIntensity:.9}));
+halo.rotation.x=Math.PI/2;halo.position.y=-.08;cake.add(halo);
+cyl(2.4,.12,.06,plateMat);
+/* tiers */
+cyl(1.6,1,.62,creamMat);cyl(1.62,.12,.62,pinkMat);cyl(1.64,.14,1.12,frostMat);
+cyl(1.1,.8,1.52,creamMat);cyl(1.12,.1,1.5,pinkMat);cyl(1.14,.14,1.92,frostMat);
+/* gold bands */
+[.2,1.1].forEach(function(y,i){var t=new THREE.Mesh(new THREE.TorusGeometry(i?1.15:1.65,.025,8,96),goldMat);t.rotation.x=Math.PI/2;t.position.y=i?1.4:.2;cake.add(t);});
+
+function addDrips(radius,topY,count){for(var i=0;i<count;i++){var a=i/count*Math.PI*2+Math.random()*.3,l=.2+Math.random()*.3,x=Math.cos(a)*radius,z=Math.sin(a)*radius;
+var b=new THREE.Mesh(new THREE.CylinderGeometry(.07,.07,l,12),frostMat);b.position.set(x,topY-l/2,z);cake.add(b);
+var t=new THREE.Mesh(new THREE.SphereGeometry(.07,12,12),frostMat);t.position.set(x,topY-l,z);cake.add(t);}}
+addDrips(1.63,1.07,16);addDrips(1.13,1.87,11);
+
+/* cherries + base pearls */
+for(var i=0;i<14;i++){var a=i/14*Math.PI*2,ch=new THREE.Mesh(new THREE.SphereGeometry(.11,20,20),cherryMat);
+ch.position.set(Math.cos(a)*1.38,1.27,Math.sin(a)*1.38);cake.add(ch);}
+for(i=0;i<30;i++){a=i/30*Math.PI*2;var p=new THREE.Mesh(new THREE.SphereGeometry(.09,16,16),M(0xfff6e6,.2,.4));
+p.position.set(Math.cos(a)*1.72,.2,Math.sin(a)*1.72);cake.add(p);}
+/* sprinkles */
+const sprCols=[0xff7aa8,0xffd98a,0xfff6e4,0xff4d6d,0xffaa5a];
+for(i=0;i<70;i++){var rr=1.22+Math.random()*.3,aa=Math.random()*Math.PI*2,
+s=new THREE.Mesh(new THREE.CylinderGeometry(.015,.015,.11,6),M(sprCols[i%5],.4));
+s.position.set(Math.cos(aa)*rr,1.2,Math.sin(aa)*rr);s.rotation.set(Math.PI/2,0,Math.random()*3);cake.add(s);}
+
+/* candles */
+const candleGroup=new THREE.Group();cake.add(candleGroup);
+const candleGeo=new THREE.CylinderGeometry(.04,.04,.55,12);
+const candleMats=sprCols.map(function(c){return M(c,.4);});
+function makeFlameTexture(){var c=document.createElement("canvas");c.width=c.height=64;var g=c.getContext("2d"),
+gr=g.createRadialGradient(32,38,2,32,38,28);gr.addColorStop(0,"rgba(255,255,255,1)");gr.addColorStop(.3,"rgba(255,247,178,.95)");
+gr.addColorStop(.7,"rgba(255,179,0,.5)");gr.addColorStop(1,"rgba(255,179,0,0)");g.fillStyle=gr;g.fillRect(0,0,64,64);return new THREE.CanvasTexture(c);}
+const glowTex=makeFlameTexture();
+const flameMat=new THREE.SpriteMaterial({map:glowTex,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false});
+
+/* floating 3D hearts */
+const heartShape=new THREE.Shape();
+heartShape.moveTo(.25,.25);heartShape.bezierCurveTo(.25,.25,.2,0,0,0);heartShape.bezierCurveTo(-.3,0,-.3,.35,-.3,.35);
+heartShape.bezierCurveTo(-.3,.55,-.1,.77,.25,.95);heartShape.bezierCurveTo(.6,.77,.8,.55,.8,.35);
+heartShape.bezierCurveTo(.8,.35,.8,0,.5,0);heartShape.bezierCurveTo(.35,0,.25,.25,.25,.25);
+const heartGeo=new THREE.ExtrudeGeometry(heartShape,{depth:.22,bevelEnabled:true,bevelThickness:.1,bevelSize:.08,bevelSegments:5,curveSegments:24});
+heartGeo.center();
+const balloons=[];
+[[-3.1,3.4,0xd4293d],[3.2,3.8,0xff7aa8],[-2.5,5,0xfff0d8],[2.6,5.2,0xb3122a],[0,5.6,0xffb3c6]].forEach(function(d,i){
+  var g=new THREE.Group(),h=new THREE.Mesh(heartGeo,M(d[2],.2,.15,{emissive:d[2],emissiveIntensity:.18}));
+  h.rotation.z=Math.PI;var sc=.75+(i%3)*.12;h.scale.set(sc,sc,sc);g.add(h);
+  g.position.set(d[0],d[1],-1+i%2);g.userData={y:d[1],ph:i*1.7,sc:sc};scene.add(g);balloons.push(g);});
+
+/* sparkle dust */
+const N=160,pp=new Float32Array(N*3);
+for(i=0;i<N;i++){pp[i*3]=(Math.random()-.5)*8;pp[i*3+1]=Math.random()*6;pp[i*3+2]=(Math.random()-.5)*5;}
+const dustGeo=new THREE.BufferGeometry();dustGeo.setAttribute("position",new THREE.BufferAttribute(pp,3));
+scene.add(new THREE.Points(dustGeo,new THREE.PointsMaterial({size:.22,map:glowTex,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,color:0xffe6a8})));
+
+const RINGS=[{r:.95,cap:26},{r:.62,cap:16},{r:.3,cap:8}];
+const CANDLE_BASE_Y=1.99;
+let flames=[],currentAge=0,blown=true;
+
+function createCake(){
+  const age=parseInt(document.getElementById("age").value);
+  if(!age||age<=0){document.getElementById("age").focus();return;}
+  currentAge=age;blown=false;hideCelebration();
+  while(candleGroup.children.length)candleGroup.remove(candleGroup.children[0]);
+  flames=[];var remaining=Math.min(age,50),n=0;
+  for(var k=0;k<RINGS.length&&remaining>0;k++){var ring=RINGS[k],count=Math.min(remaining,ring.cap);remaining-=count;
+    for(var j=0;j<count;j++){var a=j/count*Math.PI*2+k*.4,x=Math.cos(a)*ring.r,z=Math.sin(a)*ring.r;
+      var c=new THREE.Mesh(candleGeo,candleMats[n++%5]);c.position.set(x,CANDLE_BASE_Y+.275,z);candleGroup.add(c);
+      var f=new THREE.Sprite(flameMat);f.position.set(x,CANDLE_BASE_Y+.7,z);f.scale.set(.26,.4,1);candleGroup.add(f);
+      flames.push({sprite:f,lit:true,phase:Math.random()*10});}}
+  startMic();
+}
+function blowOut(){
+  if(blown||flames.length===0)return;blown=true;
+  flames.forEach(function(f,i){setTimeout(function(){f.lit=false;f.sprite.visible=false;},i*40);});
+  setTimeout(showCelebration,flames.length*40+250);
+}
+function relight(){hideCelebration();if(currentAge>0){document.getElementById("age").value=currentAge;createCake();}}
+
+/* mic */
+let audioContext,analyser,micStream;
+async function startMic(){
+  if(micStream)return;
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});micStream=stream;
+    audioContext=new(window.AudioContext||window.webkitAudioContext)();analyser=audioContext.createAnalyser();analyser.fftSize=256;
+    audioContext.createMediaStreamSource(stream).connect(analyser);
+    const data=new Uint8Array(analyser.frequencyBinCount);
+    (function detect(){analyser.getByteFrequencyData(data);var s=0;for(var i=0;i<data.length;i++)s+=data[i];
+      if(s/data.length>40&&!blown&&flames.length>0)blowOut();requestAnimationFrame(detect);})();
+  }catch(err){alert("Please allow microphone access to blow the candles! (Эсвэл 'Blow' товчийг дарна уу)");console.error(err);}
+}
+
+/* ---------- fireworks ---------- */
+const fx=document.getElementById("fx"),ctx=fx.getContext("2d");let W=0,H=0;
+function sizeFx(){var d=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;fx.width=W*d;fx.height=H*d;ctx.setTransform(d,0,0,d,0,0);}
+sizeFx();addEventListener("resize",sizeFx);
+const COLORS=[[255,217,138],[255,122,168],[255,255,255],[255,200,200],[255,246,228],[255,170,90]];
+let rockets=[],sparks=[],fireworksOn=false,nextLaunch=0;
+function launchRocket(x){rockets.push({x:x!==undefined?x:W*(.1+Math.random()*.8),y:H,vy:-(H*.016+Math.random()*H*.006),targetY:H*(.12+Math.random()*.4),color:COLORS[Math.floor(Math.random()*COLORS.length)]});}
+function explode(x,y,color){var n=70+Math.floor(Math.random()*50),shape=Math.random();
+  for(var i=0;i<n;i++){var a=i/n*Math.PI*2,sp=2+Math.random()*3.5;if(shape<.4)sp=4.2;
+    sparks.push({x:x,y:y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:1,decay:.008+Math.random()*.012,color:Math.random()<.25?COLORS[Math.floor(Math.random()*COLORS.length)]:color});}}
+function stepFx(){
+  ctx.globalCompositeOperation="destination-out";ctx.fillStyle="rgba(0,0,0,.22)";ctx.fillRect(0,0,W,H);ctx.globalCompositeOperation="lighter";
+  if(fireworksOn&&performance.now()>nextLaunch){var b=1+Math.floor(Math.random()*2);for(var i=0;i<b;i++)launchRocket();nextLaunch=performance.now()+350+Math.random()*500;}
+  rockets=rockets.filter(function(r){r.y+=r.vy;r.vy*=.985;ctx.fillStyle="rgb("+r.color.join(",")+")";ctx.beginPath();ctx.arc(r.x,r.y,2.2,0,6.283);ctx.fill();
+    if(r.y<=r.targetY||Math.abs(r.vy)<1.2){explode(r.x,r.y,r.color);return false;}return true;});
+  sparks=sparks.filter(function(p){p.x+=p.vx;p.y+=p.vy;p.vx*=.98;p.vy=p.vy*.98+.045;p.life-=p.decay;if(p.life<=0)return false;
+    ctx.fillStyle="rgba("+p.color.join(",")+","+p.life.toFixed(2)+")";ctx.beginPath();ctx.arc(p.x,p.y,1+p.life*1.6,0,6.283);ctx.fill();return true;});
+  requestAnimationFrame(stepFx);
+}
+stepFx();
+
+const overlay=document.getElementById("celebrate"),bigAge=document.getElementById("bigAge");
+function showCelebration(){bigAge.textContent=currentAge;bigAge.style.animation="none";void bigAge.offsetWidth;bigAge.style.animation="";
+  overlay.classList.add("show");fireworksOn=true;for(var i=0;i<6;i++)setTimeout(function(k){return function(){launchRocket(W*(.12+k*.15));};}(i),i*180);}
+function hideCelebration(){overlay.classList.remove("show");fireworksOn=false;}
+
+/* ---------- interaction + loop ---------- */
+let rotation=0,spin=.004,dragging=false,lastX=0;
+const cv=renderer.domElement;
+cv.addEventListener("pointerdown",function(e){dragging=true;lastX=e.clientX;cv.setPointerCapture(e.pointerId);});
+cv.addEventListener("pointermove",function(e){if(dragging){spin=(e.clientX-lastX)*.01;rotation+=spin;lastX=e.clientX;}});
+addEventListener("pointerup",function(){dragging=false;});
+
+let time=0;
+function animate(){
+  time+=.016;
+  if(!dragging){spin+=(.004-spin)*.05;rotation+=spin;}
+  cake.rotation.y=rotation;cake.position.y=Math.sin(time*1.5)*.06;
+  halo.material.emissiveIntensity=.7+.3*Math.sin(time*2);
+  var lit=0;flames.forEach(function(f){if(f.lit){lit++;var s=1+.12*Math.sin(time*25+f.phase);f.sprite.scale.set(.26*s,.4*s,1);}});
+  var t=flames.length?lit/flames.length*1.3:0;candleLight.intensity+=(t-candleLight.intensity)*.1;
+  balloons.forEach(function(g){var u=g.userData,b=1+.07*Math.max(0,Math.sin(time*3+u.ph));g.position.y=u.y+Math.sin(time*1.1+u.ph)*.25;g.rotation.y=Math.sin(time*.8+u.ph)*.7;g.rotation.z=Math.sin(time*.9+u.ph)*.1;g.scale.set(b,b,b);});
+  for(var i=0;i<N;i++){pp[i*3+1]+=.006+(i%5)*.001;if(pp[i*3+1]>6)pp[i*3+1]=0;}
+  dustGeo.attributes.position.needsUpdate=true;
+  renderer.render(scene,camera);requestAnimationFrame(animate);
+}
+animate();
+
+/* recording: loaded from media/bichleg.* (added via VS Code only) */
+const player=document.getElementById("player");
+const REC_EXTS=["mp4","webm","mov","mp3","m4a","wav","ogg"];
+function loadRec(i){
+  if(i>=REC_EXTS.length){player.innerHTML='<p style="margin:0;opacity:.8">Бичлэг хараахан нэмэгдээгүй байна.</p>';return;}
+  const ext=REC_EXTS[i],isV=["mp4","webm","mov"].indexOf(ext)>-1,el=document.createElement(isV?"video":"audio");
+  el.controls=true;el.preload="metadata";if(isV)el.playsInline=true;
+  el.addEventListener("loadedmetadata",function(){player.innerHTML="";player.appendChild(el);});
+  el.addEventListener("error",function(){loadRec(i+1);});
+  el.src="media/bichleg."+ext;
+}
+loadRec(0);
+
+</script>
+</body>
+</html>
